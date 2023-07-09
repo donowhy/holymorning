@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import project.holymorning.entity.member.Member;
 
+import java.util.List;
+
 @Getter
 @AllArgsConstructor
 @Builder
@@ -17,11 +19,10 @@ public class MemberSaveDto {
     private String email;
 
     private String phoneNumber;
-
-    private final String USER;
+    private List<String> roles;
 
     public Member toEntity(){
-        return new Member(memberId, password, checkPassword, email, phoneNumber, USER);
+        return new Member(memberId, password, checkPassword, email, phoneNumber, roles);
     }
 
 }

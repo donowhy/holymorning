@@ -36,7 +36,8 @@ public class MemberService {
         return tokenInfo;
     }
 
-    public Long save(MemberSaveDto memberSaveDto){
-        return memberRepository.save(memberSaveDto.)
+    @Transactional
+    public String save(MemberSaveDto memberSaveDto){
+        return memberRepository.save(memberSaveDto.toEntity()).getMemberId();
     }
 }

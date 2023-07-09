@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import project.holymorning.dto.MemberLoginRequestDto;
+import project.holymorning.dto.MemberSaveDto;
 import project.holymorning.login.jwt.TokenInfo;
 import project.holymorning.service.MemberService;
 
@@ -24,5 +25,10 @@ public class MemberController {
         String password = memberLoginRequestDto.getPassword();
         TokenInfo tokenInfo = memberService.login(memberId, password);
         return tokenInfo;
+    }
+
+    @PostMapping("/save")
+    public String save(@RequestBody MemberSaveDto memberSaveDto){
+        return memberService.save(memberSaveDto);
     }
 }

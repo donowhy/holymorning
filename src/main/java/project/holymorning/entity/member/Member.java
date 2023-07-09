@@ -23,7 +23,6 @@ public class Member implements UserDetails {
 
     @Id
     @Column(updatable = false, unique = true, nullable = false)
-    @GeneratedValue
     private String memberId;
 
     @Column(nullable = false)
@@ -38,7 +37,7 @@ public class Member implements UserDetails {
     @Column(nullable = false)
     private String phoneNumber;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
 
