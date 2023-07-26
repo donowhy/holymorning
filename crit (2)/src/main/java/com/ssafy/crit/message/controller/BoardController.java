@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,6 +14,8 @@ import com.ssafy.crit.auth.repository.UserRepository;
 import com.ssafy.crit.message.dto.BoardDto;
 import com.ssafy.crit.message.response.Response;
 import com.ssafy.crit.message.service.BoardService;
+
+import java.security.Principal;
 
 @RequiredArgsConstructor
 @RestController
@@ -47,11 +50,10 @@ public class BoardController {
     @ApiOperation(value = "게시글 작성", notes = "게시글을 작성한다.")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/boards/write")
-    public Response write(@RequestBody BoardDto boardDto, @AuthenticationPrincipal User user, MultipartFile file) throws
-        Exception {
-        // 원래 로그인을 하면, User 정보는 세션을 통해서 구하고 주면 되지만,
-        // 지금은 핵심 개념을 알기 위해서, JWT 로그인은 생략하고, 임의로 findById 로 유저 정보를 넣어줬습니다.
-        return new Response("성공", "글 작성 성공", boardService.write(boardDto, user, file));
+    public Response write(@RequestBody BoardDto boardDto, @AuthenticationPrincipal Principal principal) {
+        User user = userRepository.findByEmail(principal.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return new Response("성공", "글 작성 성공", boardService.write(boardDto, user));
     }
 
     // 게시글 수정

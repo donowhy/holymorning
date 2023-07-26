@@ -22,9 +22,9 @@ public class Board {
 
     private String content;
 
-    private String filename; // 파일 이름
-
-    private String filepath; // 파일 경로
+//    private String filename; // 파일 이름
+//
+//    private String filepath; // 파일 경로
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

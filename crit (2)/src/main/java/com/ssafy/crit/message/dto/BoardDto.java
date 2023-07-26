@@ -15,16 +15,16 @@ public class BoardDto {
     private String title;
     private String content;
     private String writer;
-    private String filename;
-    private String filepath;
+//    private String filename;
+//    private String filepath;
 
     public static BoardDto toDto(Board board) {
         return new BoardDto(
                 board.getId(),
                 board.getTitle(),
                 board.getContent(),
-                board.getFilename(),
-                board.getFilepath(),
+//                board.getFilename(),
+//                board.getFilepath(),
                 board.getUser().getNickname());
     }
 
