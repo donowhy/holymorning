@@ -16,11 +16,12 @@ public class BoardDto {
     private String writer;
 
     public static BoardDto toDto(Board board) {
-        return new BoardDto(
+        BoardDto boardDto = new BoardDto(
                 board.getId(),
                 board.getTitle(),
                 board.getContent(),
-                board.getMember().getName());
+                board.getUser().getId());
+        return boardDto;
     }
 
 }

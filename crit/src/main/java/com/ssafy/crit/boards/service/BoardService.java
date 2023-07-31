@@ -1,10 +1,9 @@
 package com.ssafy.crit.boards.service;
 
 
-import com.ssafy.crit.boards.service.BoardDto;
+import com.ssafy.crit.users.entity.User;
 import com.ssafy.crit.boards.entity.Board;
 import com.ssafy.crit.boards.repository.BoardRepository;
-import com.ssafy.crit.imsimember.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,11 +39,11 @@ public class BoardService {
     }
 
     // 게시물 작성
-    public BoardDto write(BoardDto boardDto, Member member){
+    public BoardDto write(BoardDto boardDto, User user){
         Board board = new Board();
         board.setTitle(boardDto.getTitle());
         board.setContent(boardDto.getContent());
-        board.setMember(member);
+        board.setUser(user);
         boardRepository.save(board);
         return BoardDto.toDto(board);
     }
@@ -69,6 +68,5 @@ public class BoardService {
         });
         // 게시글이 있는 경우 삭제처리
         boardRepository.deleteById(id);
-
     }
 }
